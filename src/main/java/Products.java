@@ -5,8 +5,8 @@ public class Products {
        products.add(product);
    }
    public void outputProducts() {
-       for(int i = 0; i < products.size(); i++) {
-           System.out.println(products.get(i));
+       for(String product : products) {
+           System.out.println(product);
        }
    }
 }

@@ -1,43 +1,58 @@
 import java.util.Scanner;
 public class Main {
-    static String product;
-    static float price;
+
     public static int quantity;
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
         Products products = new Products();
-        Calculator result = new Calculator();
+        Calculator prices = new Calculator();
+        String product;
+        float price;
 
         while (true) {
             System.out.println("На скольких человек необходимо разделить счёт?");
-            quantity = scanner.nextInt();
-            if (quantity > 1) {
-                while (true) {
-                    System.out.println("Введите название блюда или команду Завершить");
-                    product = scanner.next();
-                    if (product.equalsIgnoreCase("Завершить")) {
-                        break;
-                    }
-                    while (true) {
-                        System.out.println("Введите цену блюда");
-                        if (scanner.hasNextFloat()) {
-                            float price = scanner.nextFloat();
-                            result.addPrice(price);
-                            break;
-                        } else {
-                            System.out.println("Введите корректное значение");
-                        }
-                    }
-                    products.addProduct(product);
-                    System.out.println("Товар успешно добавлен");
+            if(scanner.hasNextInt()){
+                quantity = scanner.nextInt();
+                scanner.nextLine();
+                if (quantity > 1 ) {
+                    break;
+                } else {
+                    System.out.println("Введите значение больше 1");
                 }
-                break;
             } else {
-                System.out.println("Введите значение больше 2");
+                System.out.println("Введите целое число");
+                scanner.nextLine();
             }
         }
+
+        String end = "";
+        while (!end.equalsIgnoreCase("Завершить")) {
+            System.out.println("Введите название блюда");
+            product = scanner.nextLine();
+            products.addProduct(product);
+            while (true) {
+                System.out.println("Введите цену блюда");
+                if (scanner.hasNextFloat() ) {
+                    price = scanner.nextFloat();
+                    scanner.nextLine();
+                    if(price > 0) {
+                        prices.addPrice(price);
+                        break;
+                    } else {
+                        System.out.println("Введите цену больше 0");
+                    }
+                } else {
+                    System.out.println("введите цифровое значение");
+                    scanner.nextLine();
+                }
+            }
+            System.out.println("Товар успешно добавлен");
+            System.out.println("Добавить новый товар или завершить?");
+            end = scanner.nextLine();
+        }
+        System.out.println("Добавленные товары:");
         products.outputProducts();
-        result.samib();
+        prices.samib();
         scanner.close();
     }
 }

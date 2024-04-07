@@ -1,16 +1,16 @@
 import java.util.ArrayList;
 public class Calculator {
-    public float sum = 0;
-    public int result2;
     ArrayList<Float> prices = new ArrayList<>();
     Formatter rub = new Formatter();
     public void addPrice(float price){
         prices.add(price);
     }
     public void samib() {
-        for(int i = 0; i < prices.size(); i++) {
-            sum = sum + prices.get(i);
+        float sum = 0;
+        for(Float price : prices) {
+            sum += price;
         }
+        int result2;
         result2 = (int)Math.floor(sum / Main.quantity);
         float result = sum / Main.quantity;
         rub.formatRub(result2);
